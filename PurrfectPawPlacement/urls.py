@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls), 
     path('adoption/', include('PetAdoption.urls')),
     path('registration/', include('Registration.urls')),
+    path('applicationform/', include('ApplicationForm.urls')),
 ]
