@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Adoption Feed</title>
+    <style>
+        .header-strip {
+            background-color: #224322; 
+            color: white;
+            padding: 10px 20px;
+            text-align: left;
+            font-size: 24px;
+            width: 100%;
+        }
+        .pet-adoption-title {
+            font-size: 35px; 
+            margin: 10px 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .pet-feed {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: stretch; 
+        }
+        .pet {
+            text-align: center;
+            flex: 0 1 calc(20% - 40px); 
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .pet img {
+            width: 100%; 
+            height: 200px; 
+            object-fit: cover; 
+            border-radius: 14px; 
+            margin-bottom: 10px;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        @media (max-width: 1200px) {
+            /* For smaller screens */
+            .pet {
+                flex-basis: 25%; /* 4 pets per row */
+            }
+        }
+        @media (max-width: 768px) {
+            /* for even smaller screens */
+            .pet {
+                flex-basis: 50%; /* 2 pets per row */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-strip">
+        🐾 Purrfect Paw Placement
+    </div>
+    <div class="pet-adoption-title">
+        Pet Adoption
+    </div>
+    <div class="container">
+        <div class="pet-feed">
+            {% for pet in pets %}
+                <div class="pet">
+                    <a href="{% url 'pet_profile' pet.id %}">
+                        <img src="{{ pet.pictures.url }}" alt="{{ pet.name }}">
+                    </a>
+                    <h3>{{ pet.name }}</h3>
+                    <p>{{ pet.shelter.address }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if pets.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ pets.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ pets.number }} of {{ pets.paginator.num_pages }}.
+                </span>
+
+                {% if pets.has_next %}
+                    <a href="?page={{ pets.next_page_number }}">next</a>
+                    <a href="?page={{ pets.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+</html>
