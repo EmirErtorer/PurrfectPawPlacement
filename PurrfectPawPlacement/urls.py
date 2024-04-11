@@ -25,6 +25,7 @@ urlpatterns = [
     path('adoption/', include('PetAdoption.urls')),
     path('registration/', include('Registration.urls')),
     path('applicationform/', include('ApplicationForm.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),  # Include Django's auth URLs
 ] 
 
 if settings.DEBUG:

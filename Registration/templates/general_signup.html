@@ -1,0 +1,11 @@
+<!-- registration/general_signup.html -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Sign up as a General User</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
+{% endblock %}

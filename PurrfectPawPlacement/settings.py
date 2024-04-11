@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,6 +43,9 @@ INSTALLED_APPS = [
     'Registration',
     'ApplicationForm',
 ]
+
+# User
+AUTH_USER_MODEL = 'Registration.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
