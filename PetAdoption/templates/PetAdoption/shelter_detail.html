@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Adoption Feed</title>
+    <title>{{ shelter.name }} - Shelter Detail</title>
     <style>
         body {
-        background-color: #7f6bc2; /* This sets the background color of the entire page /
-        / Other styles... */
+            background-color: #7f6bc2;
         }
         .header-strip {
             background-color: #c77eda; 
@@ -18,7 +17,7 @@
             width: 100%;
             border-radius: 14px;
         }
-        .pet-adoption-title {
+        .shelter-title {
             font-size: 35px; 
             margin: 10px 20px;
         }
@@ -35,7 +34,7 @@
         }
         .pet {
             text-align: center;
-            flex: 0 1 calc(20% - 75px); 
+            flex: 0 1 calc(20% - 40px); 
             margin: 20px;
             display: flex;
             flex-direction: column;
@@ -56,28 +55,20 @@
             text-align: center;
             margin-top: 20px;
         }
-        @media (max-width: 1200px) {
-            /* For smaller screens */
-            .pet {
-                flex-basis: 25%; /* 4 pets per row */
-            }
-        }
-        @media (max-width: 768px) {
-            /* for even smaller screens */
-            .pet {
-                flex-basis: 50%; /* 2 pets per row */
-            }
-        }
     </style>
 </head>
 <body>
     <div class="header-strip">
         🐾 Purrfect Paw Placement
         <a href="/adoption/shelters/" style="display: inline-block; background-color: #7f6bc2; color: white; padding: 8px 10px;
-        margin-left: 575px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 14px; cursor: pointer;">Browse by Shelters</a>
+        margin-left: 525px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 14px; cursor: pointer;">Browse by Shelters</a>
+
+        <a href="/adoption/" style="display: inline-block; background-color: #7f6bc2; color: white; padding: 8px 10px;
+        margin-right: 450px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 14px; cursor: pointer;">Browse by Pets</a>
+
     </div>
-    <div class="pet-adoption-title">
-        Pet Adoption
+    <div class="shelter-title">
+        Pets at {{ shelter.name }}
     </div>
 
     <button id="filterBtn" style="position: fixed; right: 20px; top: 15px; padding: 8px 10px; font-size: 16px; border-radius: 14px; cursor: pointer;">Filter</button>
@@ -141,26 +132,11 @@
                         <img src="{{ pet.pictures.url }}" alt="{{ pet.name }}">
                     </a>
                     <h3>{{ pet.name }}</h3>
-                    <p>{{ pet.shelter.address }}</p>
+                    <p>{{ pet.breed }} | Age: {{ pet.age }}</p>
                 </div>
+            {% empty %}
+                <p>No pets available in this shelter.</p>
             {% endfor %}
-        </div>
-        <div class="pagination">
-            <span class="step-links">
-                {% if pets.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ pets.previous_page_number }}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                    Page {{ pets.number }} of {{ pets.paginator.num_pages }}.
-                </span>
-
-                {% if pets.has_next %}
-                    <a href="?page={{ pets.next_page_number }}">next</a>
-                    <a href="?page={{ pets.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </span>
         </div>
     </div>
 </body>

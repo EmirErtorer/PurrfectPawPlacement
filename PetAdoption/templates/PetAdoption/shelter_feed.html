@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelter Feed</title>
+    <style>
+        body {
+        background-color: #7f6bc2; /* This sets the background color of the entire page /
+        / Other styles... */
+        }
+        .header-strip {
+            background-color: #c77eda; 
+            color: white;
+            padding: 10px 20px;
+            text-align: left;
+            font-size: 24px;
+            width: 100%;
+            border-radius: 14px;
+        }
+        .pet-adoption-title {
+            font-size: 35px; 
+            margin: 10px 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .shelter-feed {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+        .shelter {
+            flex: 1 0 18%; /* Adjust this value to control the number of items per row */
+            margin: 10px;
+            text-align: center;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .shelter img {
+            width: 100%; /* Adjust image width */
+            height: 200px; /* Adjust image height */
+            object-fit: cover; /* This will ensure images cover the div nicely */
+            border-radius: 10px;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        @media (max-width: 1200px) {
+            /* For smaller screens */
+            .pet {
+                flex-basis: 25%; /* 4 pets per row */
+            }
+        }
+        @media (max-width: 768px) {
+            /* for even smaller screens */
+            .pet {
+                flex-basis: 50%; /* 2 pets per row */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-strip">
+        🐾 Purrfect Paw Placement
+        <a href="/adoption/" style="display: inline-block; background-color: #7f6bc2; color: white; padding: 8px 10px;
+        margin-left: 575px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 14px; cursor: pointer;">Browse by Pets</a>
+    </div>
+    <div class="pet-adoption-title">
+        Pet Adoption
+    </div>
+
+    <div class="container">
+        <div class="shelter-feed">
+            {% for shelter in shelters %}
+                <div class="shelter">
+                    <a href="{% url 'shelter_detail' shelter.id %}">
+                        <img src="/media/shelters/shelter_image.jpg" alt="Default Shelter Image">
+                    </a>
+                    <h3>{{ shelter.name }}</h3>
+                    <p>{{ shelter.address }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if shelters.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ shelters.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ shelters.number }} of {{ shelters.paginator.num_pages }}.
+                </span>
+
+                {% if pets.has_next %}
+                    <a href="?page={{ shelters.next_page_number }}">next</a>
+                    <a href="?page={{ shelters.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+</body>
