@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>General User Sign Up</title>
+    <title>Login</title>
     <style>
         body {
             background-color: #7f6bc2;
@@ -18,7 +18,7 @@
             width: 100%;
             border-radius: 14px;
         }
-        .sign-up-title {
+        .log-in-title {
             font-size: 35px; 
             margin: 10px 20px;
         }
@@ -57,37 +57,36 @@
         button[type="submit"]:hover {
             background-color: #b76acb;
         }
-        .login-link {
-            position: fixed;
-            right: 30px;
-            top: 10px;
-            padding: 8px 10px;
-            font-size: 16px;
-            border-radius: 14px;
-            background-color: #7f6bc2;
-            color: white;
+        a {
+            color: #c77eda;
             text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="header-strip">
         🐾 Purrfect Paw Placement
-        <!-- Static Login Link -->
-        <a href="{% url 'registration:login' %}" style="position: fixed; right: 30px; top: 15px; padding: 8px 10px; font-size: 16px; border-radius: 14px; background-color: #7f6bc2; color: white;">Login</a>
     </div>
 
-    <div class="sign-up-title">
-          Shelter Sign Up
+    <div class="log-in-title">
+        Log In 
     </div>
 
     <div class="form-container">
-        <h2>Sign up as a General User</h2>
+        <h2>{{ page_title }}</h2> 
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Sign up</button>
+            <button type="submit">Submit</button>
         </form>
+        <a href="{% url 'registration:general_signup' %}">Sign up as a General User</a> | 
+        <a href="{% url 'registration:shelter_signup' %}">Sign up as a Shelter</a>
+
     </div>
 </body>
 </html>

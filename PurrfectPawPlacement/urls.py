@@ -23,9 +23,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls), 
     path('adoption/', include('PetAdoption.urls')),
-    path('registration/', include('Registration.urls')),
+    path('registration/',  include(('Registration.urls', 'registration'), namespace='registration')),
     path('applicationform/', include('ApplicationForm.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),  # Include Django's auth URLs
+    path('accounts/', include('django.contrib.auth.urls')), 
 ] 
 
 if settings.DEBUG:

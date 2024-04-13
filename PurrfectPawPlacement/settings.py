@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 # User
 AUTH_USER_MODEL = 'Registration.User'
 
+LOGIN_URL = '/registration/login/'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
