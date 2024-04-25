@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Pet Details</title>
+    <style>
+        body {
+            background-color: #7f6bc2;
+        }
+        .header-strip {
+            background-color: #c77eda; 
+            color: white;
+            padding: 10px 20px;
+            text-align: left;
+            font-size: 24px;
+            width: 100%;
+            border-radius: 14px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+        form {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label, input, select, textarea {
+            display: block;
+            width: 100%;
+            margin-top: 5px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #7f6bc2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-strip">
+        🐾 Purrfect Paw Placement
+    </div>
+    <div class="container">
+        <h2>Edit Pet Details</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update Pet</button>
+        </form>
+    </div>
+</body>
+</html>

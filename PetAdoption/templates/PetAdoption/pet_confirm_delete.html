@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete Pet</title>
+    <style>
+        body {
+            background-color: #7f6bc2;
+        }
+        .header-strip {
+            background-color: #c77eda; 
+            color: white;
+            padding: 10px 20px;
+            text-align: left;
+            font-size: 24px;
+            width: 100%;
+            border-radius: 14px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+        .alert-box {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #7f6bc2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-strip">
+        🐾 Purrfect Paw Placement
+    </div>
+    <div class="container">
+        <div class="alert-box">
+            <h2>Are you sure you want to delete this pet?</h2>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+                <a href="{% url 'shelter_profile' id=shelter_id %}">
+                    <button type="button">Cancel</button>
+                </a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

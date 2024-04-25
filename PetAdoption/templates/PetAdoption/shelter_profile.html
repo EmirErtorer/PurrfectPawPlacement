@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelter Pet Management</title>
+    <style>
+        body { background-color: #7f6bc2; }
+        .header-strip {
+            background-color: #c77eda; 
+            color: white;
+            padding: 10px 20px;
+            text-align: left;
+            font-size: 24px;
+            width: 100%;
+            border-radius: 14px;
+        }
+        .shelter-title {
+            font-size: 35px; 
+            margin: 10px 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .pet-feed {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: stretch; 
+        }
+        .pet {
+            text-align: center;
+            flex: 0 0 18%; 
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: #f0f0f0;
+            border-radius: 14px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .pet img {
+            width: 100%; 
+            height: 200px; 
+            object-fit: cover; 
+            border-radius: 14px; 
+            margin-bottom: 10px;
+        }
+        .actions a {
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #c77eda;
+            color: white;
+            border-radius: 14px;
+            text-decoration: none;
+        }
+        form {
+            display: none; /* Initially hide the form */
+            background-color: white;
+            padding: 20px;
+            border-radius: 14px;
+            margin-top: 20px;
+        }
+        label, input, select, button {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button {
+            background-color: white;
+            color: black;
+            padding: 10px;
+            border: 2px solid #c77eda; 
+            border-radius: 14px;
+            cursor: pointer;
+            margin: 20px auto;
+            width: auto;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            padding: 8px 16px;
+            background-color: #7f6bc2;
+            color: white;
+            border-radius: 14px;
+            text-decoration: none;
+        }
+        @media (max-width: 1200px) {
+            .pet {
+                flex-basis: 25%; /* 4 pets per row */
+            }
+        }
+        @media (max-width: 768px) {
+            .pet {
+                flex-basis: 50%; /* 2 pets per row */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-strip">
+        🐾 Purrfect Paw Placement
+    </div>
+
+    <div class="shelter-title">
+        <h4>{{shelter.name}} Shelter</h4>
+    </div>
+
+    <div class="container">
+        <div class="pet-feed">
+            {% for pet in pets %}
+            <div class="pet">
+                <img src="{{ pet.pictures.url }}" alt="{{ pet.name }}">
+                <h3>{{ pet.name }}</h3>
+                <div class="actions">
+                    <a href="{% url 'edit_pet' shelter_id=pet.shelter_id  pk=pet.id %}">Edit</a>| 
+                    <a href="{% url 'delete_pet' shelter_id=pet.shelter_id pk=pet.id %}">Delete</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No pets found.</p>
+            {% endfor %}
+        </div>
+        <button id="addPetBtn">Add a New Pet</button>
+        <form id="addPetForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Pet</button>
+        </form>
+        <div class="pagination">
+            {% if pets.has_previous %}
+                <a href="?page={{ pets.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span>Page {{ pets.number }} of {{ pets.paginator.num_pages }}</span>
+            {% if pets.has_next %}
+                <a href="?page={{ pets.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        document.getElementById('addPetBtn').addEventListener('click', function() {
+            var form = document.getElementById('addPetForm');
+            form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>
