@@ -7,13 +7,30 @@
     <style>
         body { background-color: #7f6bc2; }
         .header-strip {
-            background-color: #c77eda; 
+            position: relative; 
+            background-color: #c77eda;
             color: white;
             padding: 10px 20px;
             text-align: left;
             font-size: 24px;
             width: 100%;
             border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-button {
+            position: absolute;
+            right: 40px; /* Align to the right */
+            top: -12px; /* Align vertically */
+            background-color: white;
+            color: #7f6bc2;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;;
         }
         .shelter-title {
             font-size: 35px; 
@@ -49,13 +66,14 @@
             border-radius: 14px; 
             margin-bottom: 10px;
         }
-        .actions a {
+        .actions a, .adoption-button {
             padding: 5px 10px;
             margin: 5px;
             background-color: #c77eda;
             color: white;
             border-radius: 14px;
             text-decoration: none;
+            display: block;
         }
         form {
             display: none; /* Initially hide the form */
@@ -105,6 +123,7 @@
 <body>
     <div class="header-strip">
         🐾 Purrfect Paw Placement
+        <button class="header-button">Log Out ↪</button>
     </div>
 
     <div class="shelter-title">
@@ -119,7 +138,8 @@
                 <h3>{{ pet.name }}</h3>
                 <div class="actions">
                     <a href="{% url 'edit_pet' shelter_id=pet.shelter_id  pk=pet.id %}">Edit</a>| 
-                    <a href="{% url 'delete_pet' shelter_id=pet.shelter_id pk=pet.id %}">Delete</a>
+                    <a href="{% url 'delete_pet' shelter_id=pet.shelter_id pk=pet.id %}">Delete</a>|
+                    <button class="adoption-button">🏠︎ View Pending Applications</button>
                 </div>
             </div>
             {% empty %}

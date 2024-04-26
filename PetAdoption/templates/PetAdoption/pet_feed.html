@@ -17,6 +17,19 @@
             width: 100%;
             border-radius: 14px;
         }
+        .header-button {
+            position: absolute;
+            right: 25px; /* Align to the right */
+            top: 18px; /* Align vertically */
+            background-color: white;
+            color: #7f6bc2;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;;
+        }
         .pet-adoption-title {
             font-size: 35px; 
             margin: 10px 20px;
@@ -74,12 +87,13 @@
         🐾 Purrfect Paw Placement
         <a href="/adoption/shelters/" style="display: inline-block; background-color: #7f6bc2; color: white; padding: 8px 10px;
         margin-left: 575px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 14px; cursor: pointer;">Browse by Shelters</a>
+        <button class="header-button">Log Out ↪</button>
     </div>
     <div class="pet-adoption-title">
         Pet Adoption
     </div>
 
-    <button id="filterBtn" style="position: fixed; right: 20px; top: 15px; padding: 8px 10px; font-size: 16px; border-radius: 14px; cursor: pointer;">Filter</button>
+    <button id="filterBtn" style="position: fixed; right: 180px; top: 15px; padding: 8px 10px; font-size: 16px; border-radius: 14px; cursor: pointer;">Filter</button>
 
     <div id="filterForm" style="display:none; position: fixed; right: 20px; top: 60px; background-color: white; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.5);">
         <form method="get">
