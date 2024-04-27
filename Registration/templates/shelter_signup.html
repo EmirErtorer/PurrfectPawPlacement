@@ -73,7 +73,7 @@
 <body>
     <div class="header-strip">
         🐾 Purrfect Paw Placement
-        <!-- Static Login Link -->
+        <!-- A button that redirects to the login page -->
         <a href="{% url 'registration:login' %}" style="position: fixed; right: 30px; top: 15px; padding: 8px 10px; font-size: 16px; border-radius: 14px; background-color: #7f6bc2; color: white;">Login</a>
     </div>
 
@@ -83,6 +83,7 @@
 
     <div class="form-container">
         <h2>Sign up as a General User</h2>
+        <!-- Get the form Signing Up -->
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}

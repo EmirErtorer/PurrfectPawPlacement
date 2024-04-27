@@ -123,6 +123,7 @@
 <body>
     <div class="header-strip">
         🐾 Purrfect Paw Placement
+        <!-- A button that redirects to the login page upon logging out -->
         <a href="/registration/login/" class="header-button">Log Out ↪</a>
     </div>
 
@@ -130,6 +131,7 @@
         <b>{{shelter.name}} Shelter</b>
     </div>
 
+    <!-- Display the available pets in a specific shelter -->
     <div class="container">
         <div class="pet-feed">
             {% for pet in pets %}
@@ -137,8 +139,11 @@
                 <img src="{{ pet.pictures.url }}" alt="{{ pet.name }}">
                 <h3>{{ pet.name }}</h3>
                 <div class="actions">
+                    <!-- A button to edit pet information -->
                     <a href="{% url 'edit_pet' shelter_id=pet.shelter_id  pk=pet.id %}">Edit</a>| 
+                    <!-- A button to delete pet object -->
                     <a href="{% url 'delete_pet' shelter_id=pet.shelter_id pk=pet.id %}">Delete</a>|
+                    <!-- A button to view the applications for each pet -->
                     <button class="adoption-button">🏠︎ View Pending Applications</button>
                 </div>
             </div>
@@ -146,12 +151,14 @@
             <p>No pets found.</p>
             {% endfor %}
         </div>
+        <!-- A button to add a new pet -->
         <button id="addPetBtn">Add a New Pet</button>
         <form id="addPetForm" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Add Pet</button>
+            {{ form.as_p }} 
+            <button type="submit">Add Pet</button> <!-- Submitting the form -->
         </form>
+        <!-- For navigationg more pets -->
         <div class="pagination">
             {% if pets.has_previous %}
                 <a href="?page={{ pets.previous_page_number }}">Previous</a>
@@ -162,6 +169,7 @@
             {% endif %}
         </div>
     </div>
+    <!--  To make the form pop out after clicking the Add Pet button -->
     <script>
         document.getElementById('addPetBtn').addEventListener('click', function() {
             var form = document.getElementById('addPetForm');

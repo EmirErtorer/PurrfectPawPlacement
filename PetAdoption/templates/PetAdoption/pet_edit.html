@@ -51,10 +51,10 @@
     </div>
     <div class="container">
         <h2>Edit Pet Details</h2>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data"> <!-- Get the form to edit a pet -->
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Update Pet</button>
+            <button type="submit">Update Pet</button> <!-- SUbmit the form  -->
         </form>
     </div>
 </body>

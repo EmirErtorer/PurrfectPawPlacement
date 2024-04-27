@@ -50,8 +50,10 @@
             <h2>Are you sure you want to delete this pet?</h2>
             <form method="post">
                 {% csrf_token %}
-                <button type="submit">Delete</button>
-                <a href="{% url 'shelter_profile' id=shelter_id %}">
+                <button type="submit">Delete</button> <!-- Button for deletion -->
+                
+                <!-- Redirect to the Shelter Profile upon cancellation -->
+                <a href="{% url 'shelter_profile' id=shelter_id %}"> 
                     <button type="button">Cancel</button>
                 </a>
             </form>

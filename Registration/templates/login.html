@@ -84,7 +84,9 @@
             {{ form.as_p }}
             <button type="submit">Submit</button>
         </form>
+        <!-- A button that redirects to the General User Sign Up page -->
         <a href="{% url 'registration:general_signup' %}">Sign up as a General User</a> | 
+        <!-- A button that redirects to the Shelter User Sign Up page -->
         <a href="{% url 'registration:shelter_signup' %}">Sign up as a Shelter</a>
 
     </div>
