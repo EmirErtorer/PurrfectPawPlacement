@@ -13,6 +13,7 @@ This project uses a virtual environment to manage dependencies.
 # Setup the project
   a) If you are using Linux or Windows Subsystem for Linux (WSL), use the shell script provided:
 	  ./start_project.sh
+  
   b) If you are using Windows (PowerShell or CMD), use the batch script provided:
 	  start_project.bat
 
