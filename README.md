@@ -21,12 +21,14 @@ After running the setup script, the Django development server should start autom
 Access the application through your web browser at http://127.0.0.1:8000/registration/login
 
 # Testing Users
-General User: EmirE  Password: root1234
+General User: EmirE        Password: root1234
 Shelter User: K1L2M3N4O5P  Password: root1234
 
 # Additional Notes
 The scripts will handle virtual environment creation, dependency installations, database migrations, and server startup.
 
 # Troubleshooting
-Permission Errors: Ensure you have execution permissions for the scripts. For Linux/WSL, you might need to run:   chmod +x start_project.sh.
-Dependency Issues: Make sure all dependencies listed in requirements.txt are compatible with your Python version. Upgrade pip if necessary using python -m pip install --upgrade pip.
+Permission Errors: Ensure you have execution permissions for the scripts. For Linux/WSL, you might need to run:
+chmod +x start_project.sh.
+Dependency Issues: Make sure all dependencies listed in requirements.txt are compatible with your Python version. Upgrade pip if necessary using:
+python -m pip install --upgrade pip.
