@@ -36,7 +36,8 @@ fi
 
 # Step 5: Start the Django Development Server
 echo "Starting the Django server..."
+echo "Go to adress: http://127.0.0.1:8000/registration/login/ "
 python manage.py runserver
-echo "go to adress: http://127.0.0.1:8000/registration/login/ "
+
 
 echo "Script completed."

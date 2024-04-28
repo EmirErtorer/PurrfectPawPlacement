@@ -24,8 +24,9 @@ if %errorlevel% neq 0 goto Error
 
 :: Step 5: Start the Django Development Server
 echo Starting the Django server...
+echo Go to the address: http://127.0.0.1:8000/registration/login
 python manage.py runserver
-echo go to the address: http://127.0.0.1:8000/registration/login
+
 
 goto End
 
