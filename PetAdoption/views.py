@@ -37,9 +37,7 @@ def pet_profile(request, id):
 # A view for browsing by Shelter Feed
 def shelter_feed(request):
     shelters = Shelter.objects.all() # Getting all the shelter objects from the Shelter Model
-    paginator = Paginator(shelters, 10)  # Displaying a total of 10 shelters for each page
-
-    pets = paginate_queryset(request, shelters, 10)
+    shelters = paginate_queryset(request, shelters, 10)
 
     # Rendering the page with visual elements
     return render(request, 'PetAdoption/shelter_feed.html', {'shelters': shelters})

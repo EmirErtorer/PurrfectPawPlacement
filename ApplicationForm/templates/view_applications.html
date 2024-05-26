@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Pet Details</title>
+    <title>View Applications</title>
     <style>
         html, body {
             height: 100%;  
@@ -37,43 +37,44 @@
         .container {
             width: 100%;
             max-width: 1200px;
-            margin: auto;
-        }
-        form {
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 14px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        label, input, select, textarea {
-            display: block;
-            width: 100%;
-            margin-top: 5px;
-        }
-        button {
-            padding: 8px 16px;
-            background-color: #7f6bc2;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 10px;
+        .application {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
     <div class="header-strip">
-        🐾 Purrfect Paw Placement
+        🐾 Purrfect Paw Placement - Applications for {{ pet.name }}
         <button onclick="goBack()" class="back-button">Go Back</button>
     </div>
     <div class="container">
-        <h2>Edit Pet Details</h2>
-        <form method="post" enctype="multipart/form-data"> <!-- Get the form to edit a pet -->
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Update Pet</button> <!-- SUbmit the form  -->
-        </form>
+        {% for application in applications %}
+        <div class="application">
+            <p>Applicant Name: {{ application.first_name }} {{ application.last_name }}</p>
+            <p>Address: {{ application.address }}</p>
+            <p>Phone: {{ application.phone_number }}</p>
+            <p>Email: {{ application.email }}</p>
+            <p>Children: {{ application.number_of_children }}</p>
+            <p>Pets: {{ application.number_of_pets }}</p>
+            <p>Residence Type: {{ application.residence_type }}</p>
+            <p>Income Range: {{ application.income_range }}</p>
+            <p>Activity Level: {{ application.activity_level }}</p>
+            <p>Time Availability: {{ application.time_availability }}</p>
+            <p>Prior Pet Experience: {{ application.prior_pet_experience }}</p>
+            <p>Additional Notes: {{ application.additional_notes }}</p>
+        </div>
+        {% empty %}
+        <p>No applications found.</p>
+        {% endfor %}
     </div>
 
     <script>

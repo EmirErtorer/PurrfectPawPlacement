@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls), 
     path('adoption/', include('PetAdoption.urls')),
     path('registration/',  include(('Registration.urls', 'registration'), namespace='registration')),
-    path('applicationform/', include('ApplicationForm.urls')),
+    path('applicationform/', include('ApplicationForm.urls', namespace='applicationform')),
     path('registration/login/', CustomLoginView.as_view(), name='login'), 
 ] 
 

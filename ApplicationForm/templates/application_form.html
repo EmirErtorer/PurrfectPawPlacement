@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Pet Details</title>
+    <title>Application for Adoption</title>
     <style>
         html, body {
             height: 100%;  
@@ -36,43 +36,51 @@
         }
         .container {
             width: 100%;
-            max-width: 1200px;
-            margin: auto;
-        }
-        form {
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 14px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        label, input, select, textarea {
-            display: block;
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label, input, textarea, select {
+            margin-bottom: 10px;
+        }
+        input, textarea, select {
             width: 100%;
-            margin-top: 5px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
         }
         button {
-            padding: 8px 16px;
-            background-color: #7f6bc2;
+            padding: 10px 20px;
+            background-color: #c77eda;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #b76acb;
         }
     </style>
 </head>
 <body>
     <div class="header-strip">
-        🐾 Purrfect Paw Placement
+        🐾 Purrfect Paw Placement - Adoption Application
         <button onclick="goBack()" class="back-button">Go Back</button>
     </div>
     <div class="container">
-        <h2>Edit Pet Details</h2>
-        <form method="post" enctype="multipart/form-data"> <!-- Get the form to edit a pet -->
+        <h2>Fill out the form to apply for {{ pet.name }}</h2>
+        <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Update Pet</button> <!-- SUbmit the form  -->
+            <button type="submit">Submit Application</button>
         </form>
     </div>
 

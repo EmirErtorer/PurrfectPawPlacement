@@ -1,68 +1,31 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import AdoptionApplication
+from PetAdoption.models import Pet
+from .forms import AdoptionApplicationForm
 
-# Create your views here.
-def test1(request):
-    return HttpResponse("""
-    <head>
-    <title> My first website </title>
-    <meta name="description" content="Free HTML tutorial">
-    <meta name="keywords" content="HTML,tutorial,beginners">
-    <meta name="author" content="BroCode">
-    <meta name="viewport" content="width=device-width, initialscale=1.0">
-    <meta charset="UTF-8">
-</head>
+def apply_for_adoption(request, pet_id):
+    pet = get_object_or_404(Pet, id=pet_id)
+    user = request.user.generaluser
+    if request.method == 'POST':
+        form = AdoptionApplicationForm(request.POST)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.pet = pet
+            application.applicant = user
+            application.save()
+            return redirect('pet_profile', id=pet_id)
+    else:
+        initial_data = {
+            'first_name': user.user.first_name,
+            'last_name': user.user.last_name,
+            'address': user.user.address,
+            'phone_number': user.user.phone_number,
+            'email': user.user.email,
+        }
+        form = AdoptionApplicationForm(initial=initial_data)
+    return render(request, 'application_form.html', {'form': form, 'pet': pet})
 
-<body style="background-color: black;">
-    <h1> UR MOM</h1>
-
-    <hr>
-
-    <p> <span style="color: red">Lorem ipsum</span> dolor sit amet consectetur adipisicing elit. Labore harum unde incidunt. Officia consectetur eius, magni amet perferendis delectus reiciendis molestiae ut consequuntur, repellat pariatur dolore, et praesentium itaque nobis? </p>
-
-    <audio controls autoplay src = "jjba.mp3"></audio>
-
-    <br>
-
-    <video controls autoplay mute src="unknown_replay_2023.07.13-18.35.mp4" width="450"></video>
-
-    <h3>Mother of all Lists</h3>
-    <ol type="i">
-        <li>Your mom</li>
-            <ul>
-                <li>Very nice to me</li>
-                <li>Stuff here</li>
-            </ul>
-        <li>My mom</li>
-            <ul>
-                <li>Is a big meanie to me :(</li>
-                <li>Loves yemek</li>
-            </ul>
-    </ol>
-
-    <table bgcolor="black" width="280">
-        <tr bgcolor="lightgray" align="center">
-            <th width="90"> Game </th>
-            <th width="40"> Me Like? </th>
-        </tr>
-        <tr bgcolor="grey" align="center">
-            <td width="90">Dark Souls 1</td>
-            <td width="45">Yesss</td>
-        </tr>
-        <tr bgcolor="grey" align="center">
-            <td width="90">Dark Souls 2</td>
-            <td width="45">HELL NO</td>
-        </tr>
-    </table>
-
-    <iframe src="https://www.protondb.com/" width="750" height="550"> </iframe>
-
-    <br>
-
-    <a href="https://en.wikipedia.org/wiki/Thylacine">
-        <img src="tasmanian_tiger.jpeg" width="480">
-    </a>
-
-</body>
-    
-    """)
+def view_applications(request, pet_id):
+    pet = get_object_or_404(Pet, id=pet_id)
+    applications = pet.applications.all()
+    return render(request, 'view_applications.html', {'pet': pet, 'applications': applications})

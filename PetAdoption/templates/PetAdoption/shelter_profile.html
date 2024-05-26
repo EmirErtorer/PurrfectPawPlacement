@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shelter Pet Management</title>
     <style>
-        body { background-color: #7f6bc2; }
+        html, body {
+            height: 100%;  
+            margin: 0;    
+            padding: 0;    
+            background-color: #7f6bc2;  
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
         .header-strip {
             position: relative; 
             background-color: #c77eda;
@@ -88,8 +96,8 @@
             margin-top: 10px;
         }
         button {
-            background-color: white;
-            color: black;
+            background-color: #c77eda;
+            color: white;
             padding: 10px;
             border: 2px solid #c77eda; 
             border-radius: 14px;
@@ -144,7 +152,7 @@
                     <!-- A button to delete pet object -->
                     <a href="{% url 'delete_pet' shelter_id=pet.shelter_id pk=pet.id %}">Delete</a>|
                     <!-- A button to view the applications for each pet -->
-                    <button class="adoption-button">🏠︎ View Pending Applications</button>
+                    <a href="{% url 'applicationform:view_applications' pet.id %}" class="adoption-button">🏠︎ View Pending Applications</a>
                 </div>
             </div>
             {% empty %}
