@@ -2,10 +2,19 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import AdoptionApplication
 from PetAdoption.models import Pet
 from .forms import AdoptionApplicationForm
+from django.contrib import messages 
 
 def apply_for_adoption(request, pet_id):
     pet = get_object_or_404(Pet, id=pet_id)
     user = request.user.generaluser
+
+    # Check if the user has already applied for this pet
+    existing_application = AdoptionApplication.objects.filter(pet=pet, applicant=user).exists()
+    
+    if existing_application:
+        messages.error(request, "You have already applied to adopt this pet.")
+        return redirect('pet_profile', id=pet_id)
+
     if request.method == 'POST':
         form = AdoptionApplicationForm(request.POST)
         if form.is_valid():
@@ -13,6 +22,7 @@ def apply_for_adoption(request, pet_id):
             application.pet = pet
             application.applicant = user
             application.save()
+            messages.success(request, "Your application has been submitted.")
             return redirect('pet_profile', id=pet_id)
     else:
         initial_data = {

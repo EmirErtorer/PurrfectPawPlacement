@@ -122,7 +122,11 @@
 
         <!-- A button to fill out an application form, not yet implemented -->
         </div class="button-container">
-            <a href="{% url 'applicationform:apply_for_adoption' pet.id %}" class="adoption-button">🏠︎ Give Me A Forever Home? Adopt Now ^-^</a>
+            {% if not existing_application %}
+                <a href="{% url 'applicationform:apply_for_adoption' pet.id %}" class="adoption-button">🏠︎ Give Me A Forever Home? Adopt Now ^-^</a>
+            {% else %}
+                <p class="adoption-button">You have already applied to adopt this pet.</p>
+            {% endif %}
         <div>
 
         </div>

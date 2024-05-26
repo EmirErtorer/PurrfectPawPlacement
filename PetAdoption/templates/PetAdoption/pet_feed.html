@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,15 +19,17 @@
             background-color: #c77eda;
             color: white;
             padding: 10px 20px;
-            text-align: left;
             font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-sizing: border-box;
             width: 100%;
-            border-radius: 14px;
         }
-        .header-button {
-            position: absolute;
-            right: 25px; /* Align to the right */
-            top: 18px; /* Align vertically */
+        .header-button, .filter-button {
             background-color: white;
             color: #7f6bc2;
             border: none;
@@ -34,7 +37,24 @@
             border-radius: 14px;
             cursor: pointer;
             font-size: 16px;
-            text-align: center;;
+            text-align: center;
+        }
+        .filter-button {
+            margin-right: 20px; /* Give some space from the right edge */
+        }
+        .center-button-wrapper {
+            flex-grow: 1; /* Takes up any available space */
+            display: flex;
+            justify-content: center; /* Center the button horizontally */
+        }
+        .center-button {
+            background-color: #7f6bc2;
+            color: white;
+            padding: 8px 10px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
         }
         .pet-adoption-title {
             font-size: 35px; 
@@ -74,6 +94,50 @@
             text-align: center;
             margin-top: 20px;
         }
+        #filterForm {
+            display: none;
+            position: fixed;
+            right: 10px;
+            top: 50px; /* Adjust based on your header's height */
+            background-color: white;
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            width: 300px; /* Set a fixed width for your form */
+            z-index: 1060; /* Above the header strip */
+        }
+        .help-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            font-size: 20px;
+            color: white;
+            background-color: #7f6bc2;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        .help-modal {
+            position: fixed;
+            bottom: 70px; /* Position above the help button */
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 300px;
+            z-index: 1100;
+            padding: 20px;
+        }
+
+        .help-content .close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
         @media (max-width: 1200px) {
             /* For smaller screens */
             .pet {
@@ -91,22 +155,36 @@
 <body>
     <div class="header-strip">
         🐾 Purrfect Paw Placement
-        <!-- A button to redirect to the Shelter Feed  -->
-        <a href="/adoption/shelters/" style="display: inline-block; background-color: #7f6bc2; color: white; padding: 8px 10px;
-        margin-left: 575px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 14px; cursor: pointer;">Browse by Shelters</a>
-        
-        <!-- A button that redirects to the login page upon logging out -->
-        <a href="/registration/login/" class="header-button">Log Out ↪</a> 
+        <div class="center-button-wrapper">
+            <a href="/adoption/shelters/" class="center-button">Browse by Shelters</a>
+        </div>
+        <button class="filter-button" id="filterBtn">Filter</button>
+        <a href="/registration/login/" class="header-button">Log Out ↪</a>
     </div>
+
+
     <div class="pet-adoption-title">
         Pet Adoption
     </div>
 
-    <!-- Button for filteration options -->
-    <button id="filterBtn" style="position: fixed; right: 180px; top: 15px; padding: 8px 10px; font-size: 16px; border-radius: 14px; cursor: pointer;">Filter</button>
+    <!-- Help Button -->
+    <button id="helpBtn" class="help-button">?</button>
 
-    <!-- A form to filter pets based on attributes -->
-    <div id="filterForm" style="display:none; position: fixed; right: 20px; top: 60px; background-color: white; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.5);">
+    <!-- Help Modal -->
+    <div id="helpModal" class="help-modal" style="display:none;">
+        <div class="help-content">
+            <span class="close">&times;</span>
+            <h2>How Can We Help?</h2>
+            <p>Welcome to our Pet Adoption Feed! Here's how you can use this site:</p>
+            <ul>
+                <li><strong>Browse Pets:</strong> Use the filter button to find pets by species, breed, gender, age, and allergies.</li>
+                <li><strong>Adopt a Pet:</strong> Click on any pet's image to learn more about them and start the adoption process.</li>
+                <li><strong>Shelter Information:</strong> Visit the 'Browse by Shelters' to see pets by shelter.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="filterForm">
         <form method="get">
             <div>
                 <!-- Filtering by species -->
@@ -154,15 +232,19 @@
 
     <!--  To make the form pop out after clicking the Filter button -->
     <script>
-    document.getElementById('filterBtn').onclick = function() {
-        var form = document.getElementById('filterForm');
-        if (form.style.display === "none" || form.style.display === "") {
-            form.style.display = "block";
-        } else {
-            form.style.display = "none";
-        }
-    };
+        document.getElementById('filterBtn').onclick = function() {
+            var form = document.getElementById('filterForm');
+            form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+        };
+        document.getElementById('helpBtn').onclick = function() {
+            document.getElementById('helpModal').style.display = 'block';
+        };
+
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('helpModal').style.display = 'none';
+        };
     </script>
+    
 
     <!-- Displaying all the available pets along with their pictures -->
     <div class="container">

@@ -8,6 +8,8 @@ from django.views.generic import UpdateView, DeleteView
 from django.contrib.auth import get_user_model
 from .models import Pet, Shelter
 from .forms import PetForm
+from ApplicationForm.models import AdoptionApplication
+
 
 User = get_user_model() # Fetching the current user details
 
@@ -30,9 +32,11 @@ def pet_feed(request):
 
 # A view for accessing each Pet Profile
 def pet_profile(request, id):
-    pet = Pet.objects.get(id=id) # Fetching the information of a specific pet from the Pet Model
-    # Rendering the page with visual elements
-    return render(request, 'PetAdoption/pet_profile.html', {'pet': pet})
+    pet = get_object_or_404(Pet, id=id)
+    user = request.user.generaluser
+    existing_application = AdoptionApplication.objects.filter(pet=pet, applicant=user).exists()
+    return render(request, 'PetAdoption/pet_profile.html', {'pet': pet, 'existing_application': existing_application})
+
 
 # A view for browsing by Shelter Feed
 def shelter_feed(request):

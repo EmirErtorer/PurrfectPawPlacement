@@ -15,13 +15,42 @@
             font-family: Arial, sans-serif;
         }
         .header-strip {
-            background-color: #c77eda; 
+            background-color: #c77eda;
             color: white;
             padding: 10px 20px;
-            text-align: left;
             font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-sizing: border-box;
             width: 100%;
+        }
+        .header-button{
+            background-color: white;
+            color: #7f6bc2;
+            border: none;
+            padding: 8px 16px;
             border-radius: 14px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+        .center-button-wrapper {
+            flex-grow: 1; /* Takes up any available space */
+            display: flex;
+            justify-content: center; /* Center the button horizontally */
+        }
+        .center-button {
+            background-color: #7f6bc2;
+            color: white;
+            padding: 8px 10px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
         }
         .pet-adoption-title {
             font-size: 35px; 
@@ -55,6 +84,37 @@
             text-align: center;
             margin-top: 20px;
         }
+        .help-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            font-size: 20px;
+            color: white;
+            background-color: #7f6bc2;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        .help-modal {
+            position: fixed;
+            bottom: 70px; /* Position above the help button */
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 300px;
+            z-index: 1100;
+            padding: 20px;
+        }
+
+        .help-content .close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
         @media (max-width: 1200px) {
             .pet {
                 flex-basis: 25%; 
@@ -71,12 +131,41 @@
     <div class="header-strip">
         🐾 Purrfect Paw Placement
         <!-- Redirect to the login page upon logging out -->
-        <a href="/adoption/" style="display: inline-block; background-color: #7f6bc2; color: white; padding: 8px 10px;
-        margin-left: 575px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 14px; cursor: pointer;">Browse by Pets</a>
+        <div class="center-button-wrapper">
+            <a href="/adoption/" class="center-button">Browse by Pets</a>
+        </div>
+        <a href="/registration/login/" class="header-button">Log Out ↪</a>
     </div>
     <div class="pet-adoption-title">
         Pet Adoption
     </div>
+
+    <!-- Help Button -->
+    <button id="helpBtn" class="help-button">?</button>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="help-modal" style="display:none;">
+        <div class="help-content">
+            <span class="close">&times;</span>
+            <h2>How Can We Help?</h2>
+            <p>Welcome to our Pet Adoption Feed! Here's how you can use this site:</p>
+            <ul>
+                <li><strong>Browse Pets:</strong> Use the filter button to find pets by species, breed, gender, age, and allergies.</li>
+                <li><strong>Adopt a Pet:</strong> Click on any pet's image to learn more about them and start the adoption process.</li>
+                <li><strong>Shelter Information:</strong> Visit the 'Browse by Shelters' to see pets by shelter.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('helpBtn').onclick = function() {
+            document.getElementById('helpModal').style.display = 'block';
+        };
+
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('helpModal').style.display = 'none';
+        };
+    </script>
 
     <!-- Displaying all the registered shelters along with a generic image -->
     <div class="container">

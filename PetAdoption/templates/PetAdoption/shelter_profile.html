@@ -15,22 +15,20 @@
             font-family: Arial, sans-serif;
         }
         .header-strip {
-            position: relative; 
             background-color: #c77eda;
             color: white;
             padding: 10px 20px;
-            text-align: left;
             font-size: 24px;
-            width: 100%;
-            border-radius: 14px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-sizing: border-box;
+            width: 100%;
         }
-        .header-button {
-            position: absolute;
-            right: 40px; /* Align to the right */
-            top: 8px; /* Align vertically */
+        .header-button{
             background-color: white;
             color: #7f6bc2;
             border: none;
@@ -38,7 +36,7 @@
             border-radius: 14px;
             cursor: pointer;
             font-size: 16px;
-            text-align: center;;
+            text-align: center;
         }
         .shelter-title {
             font-size: 35px; 
@@ -116,6 +114,37 @@
             border-radius: 14px;
             text-decoration: none;
         }
+        .help-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            font-size: 20px;
+            color: white;
+            background-color: #7f6bc2;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        .help-modal {
+            position: fixed;
+            bottom: 70px; /* Position above the help button */
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 300px;
+            z-index: 1100;
+            padding: 20px;
+        }
+
+        .help-content .close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
         @media (max-width: 1200px) {
             .pet {
                 flex-basis: 25%; /* 4 pets per row */
@@ -137,6 +166,24 @@
 
     <div class="shelter-title">
         <b>{{shelter.name}} Shelter</b>
+    </div>
+
+    <!-- Help Button -->
+    <button id="helpBtn" class="help-button">?</button>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="help-modal" style="display:none;">
+        <div class="help-content">
+            <span class="close">&times;</span>
+            <h2>How Can We Help?</h2>
+            <p>Welcome to our Pet Adoption Feed! Here's how you can use this site:</p>
+            <ul>
+                <li><strong>Add New Pets:</strong> Use the 'Add Pet' button located in your shelter profile to input new pets into the system. Provide necessary details like species, breed, age, and health status to ensure potential adopters have all the information they need.</li>
+                <li><strong>Edit Pet Information:</strong> To update details about the pets under your care, use the 'Edit' links next to each pet in your shelter profile. This allows you to keep information up to date, including any changes in health status or availability.</li>
+                <li><strong>Delete Pet Profiles:</strong> If a pet has been adopted or can no longer be offered for adoption, use the 'Delete' option to remove their profile from the site. This helps keep your listing current and accurate.</li>
+                <li><strong>View Adoption Applications:</strong> Access the 'View Applications' link for each pet to see all current adoption applications. This feature helps you track interested parties and manage the adoption process efficiently.</li>
+            </ul>
+        </div>
     </div>
 
     <!-- Display the available pets in a specific shelter -->
@@ -183,6 +230,13 @@
             var form = document.getElementById('addPetForm');
             form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
         });
+        document.getElementById('helpBtn').onclick = function() {
+            document.getElementById('helpModal').style.display = 'block';
+        };
+
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('helpModal').style.display = 'none';
+        };
     </script>
 </body>
 </html>
